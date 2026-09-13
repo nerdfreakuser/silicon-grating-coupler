@@ -1,0 +1,167 @@
+{
+  "platform": "SOI-220, 70 nm shallow etch, 2 um BOX, oxide clad, 8 deg, SMF-28",
+  "slab": {
+    "unetched": {
+      "n_eff": 2.8477822434462743,
+      "n_g": 3.576757360998685,
+      "Gamma": 0.8102764761147752
+    },
+    "etched": {
+      "n_eff": 2.5393495533134605,
+      "n_g": 3.4011249698688264,
+      "Gamma": 0.6553186719119712
+    }
+  },
+  "design": {
+    "period_nm": 621.8406631394354,
+    "fill": 0.5,
+    "n_eff": 2.6935658983798674,
+    "n_unetch": 2.8477822434462743,
+    "n_etch": 2.5393495533134605,
+    "n_g": 3.4889411654337557,
+    "confinement_si": 0.7327975740133732,
+    "ff_min": 0.24121934908969678,
+    "ff_max": 0.7587806509103032,
+    "directionality": 0.7252505996324247,
+    "reflection": 0.003296814999972152,
+    "eta_uniform": 0.537,
+    "eta_apodized": 0.5944761717259703,
+    "il_uniform_db": 2.7002571430044435,
+    "il_apodized_db": 2.258655484385946,
+    "overlap_uniform": 0.870259168798926,
+    "overlap_apodized": 0.9634047282625894,
+    "alpha_per_um": 0.11,
+    "length_um": 12.0,
+    "z0_uniform_um": 2.7272727272727275,
+    "z0_apodized_um": 3.6,
+    "ff_start": 0.7587806509103032,
+    "ff_end": 0.24121934908969678,
+    "eta_2d": 0.8710551640525367
+  },
+  "thermal": {
+    "dlambda_dT_nm_per_K": 0.066742361929186,
+    "dn_eff_dT": 0.00013457558758227345,
+    "n_g": 3.4889411654337557,
+    "bw1db_nm": 47.18687021762175,
+    "fwhm_nm": 81.87023912071979,
+    "extra_il_1K_db": 8.002409833077816e-06,
+    "extra_il_20K_db": 0.003200963933231127
+  },
+  "monte_carlo": {
+    "n": 2500,
+    "mean_il_db": 2.4221067078384424,
+    "median_il_db": 2.3801940531263854,
+    "std_il_db": 0.14755119672068576,
+    "p05_il_db": 2.272749784534714,
+    "p95_il_db": 2.7383138527506885,
+    "nominal_apodized_il_db": 2.258655484385946,
+    "bw1db_nm": 47.18687021762175,
+    "yields": {
+      "y_le_0.5dB": 0.0,
+      "y_le_1.0dB": 0.0,
+      "y_le_1.5dB": 0.0,
+      "y_le_2.0dB": 0.0,
+      "y_le_2.5dB": 0.7868,
+      "y_le_3.0dB": 0.994,
+      "y_le_3.5dB": 1.0
+    },
+    "specs": [
+      0.5,
+      1.0,
+      1.5,
+      2.0,
+      2.5,
+      3.0,
+      3.5
+    ]
+  },
+  "sobol": {
+    "t_si": 0.11153902209804978,
+    "etch": 0.2572388955112658,
+    "cd": 0.055240789942359925,
+    "theta": 0.18297330639964116,
+    "offset": 0.3693669170554239,
+    "sum_first_order": 0.9763589310067405,
+    "interactions_residual": 0.023641068993259462,
+    "total_order": {
+      "t_si": 0.30749507253478614,
+      "etch": 0.5694101611583512,
+      "cd": 0.00773999359410334,
+      "theta": 0.08575054910576811,
+      "offset": 0.28480738938621664
+    }
+  },
+  "optimize": {
+    "ff_start": 0.7587806509103032,
+    "ff_end": 0.28441941170633006,
+    "length_um": 10.0,
+    "success": false,
+    "fun": 3.675787570094719,
+    "mean_il_db": 2.350642315063552,
+    "cvar90_il_db": 2.6894555698678833,
+    "yield_2p5dB": 0.864,
+    "yield_2p0dB": 0.0,
+    "yield_1p5dB": 0.0,
+    "yield_0p5dB": 0.0,
+    "x0": [
+      0.7587806509103032,
+      0.24121934908969678,
+      12.0
+    ]
+  },
+  "energy": {
+    "pdk_to_model": {
+      "delta_il_db_per_coupler": 0.5413445156140537,
+      "n_couplers_in_path": 2,
+      "laser_optical_scale": 1.2831248121175882,
+      "laser_electrical_pj": 3.75,
+      "laser_electrical_pj_improved": 2.9225527903331843,
+      "module_pj": 15.0,
+      "module_fraction_saved": 0.05516314731112105,
+      "pj_saved": 0.8274472096668157
+    },
+    "pdk_to_0p5dB": {
+      "delta_il_db_per_coupler": 2.3,
+      "n_couplers_in_path": 2,
+      "laser_optical_scale": 2.8840315031266055,
+      "laser_electrical_pj": 3.75,
+      "laser_electrical_pj_improved": 1.3002631891969938,
+      "module_pj": 15.0,
+      "module_fraction_saved": 0.16331578738686708,
+      "pj_saved": 2.449736810803006
+    },
+    "from3p0_to_0p3": {
+      "delta_il_db_per_coupler": 2.7,
+      "n_couplers_in_path": 2,
+      "laser_optical_scale": 3.4673685045253166,
+      "laser_electrical_pj": 3.75,
+      "laser_electrical_pj_improved": 1.081511813672477,
+      "module_pj": 15.0,
+      "module_fraction_saved": 0.17789921242183487,
+      "pj_saved": 2.668488186327523
+    }
+  },
+  "stats": {
+    "n_per_arm_yield_50_vs_70": 91,
+    "n_per_arm_mean_il_0p3dB_sigma_0p3": 16,
+    "n_paired_0p3dB_sigma_diff_0p2": 4,
+    "n_per_arm_yield_70_vs_90": 59,
+    "mc_yield_2p5dB_clopper_pearson": {
+      "k": 1967,
+      "n": 2500,
+      "lo": 0.7702139069356198,
+      "hi": 0.8027115098023895
+    },
+    "wrong_draft_n_wafers": 50
+  },
+  "process_sigma": {
+    "t_si_nm": 2.0,
+    "etch_nm": 3.0,
+    "cd_nm": 2.6,
+    "theta_deg": 0.4,
+    "offset_um": 0.8,
+    "overlay_nm": 10.0
+  },
+  "physics_cap_db": 1.8708664335714442,
+  "pdk_il_db": 2.8
+}

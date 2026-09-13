@@ -1,0 +1,53 @@
+{
+  "geometry": {
+    "design": "uniform",
+    "x_g0_um": 7.155460165784859,
+    "x_g1_um": 19.28135309700385,
+    "x_left_um": -2.5,
+    "x_right_um": 22.78135309700385,
+    "sim_xmin_um": -2.5,
+    "sim_xmax_um": 22.78135309700385,
+    "wg_extra_lo_um": -5.5,
+    "wg_extra_hi_um": 7.155460165784859,
+    "wg_covers_xmin": true,
+    "x_fib_mid_um": 13.218406631394355,
+    "x_fib_um": 13.218406631394355,
+    "x_fib_offset_um": 0.0,
+    "x_mon_um": 4.655460165784859,
+    "dl_nm": 16.0,
+    "etch_nm": 70.0,
+    "n_cells": 733258
+  },
+  "16nm_1wl": {
+    "dl_nm": 16.0,
+    "n_wl": 1,
+    "n_cells": 733258,
+    "est_flex": 0.025
+  },
+  "16nm_7wl": {
+    "dl_nm": 16.0,
+    "n_wl": 7,
+    "n_cells": 733258,
+    "est_flex": 0.025
+  },
+  "8nm_1wl": {
+    "dl_nm": 8.0,
+    "n_wl": 1,
+    "n_cells": 2846995,
+    "est_flex": 0.08064099618674359
+  },
+  "4nm_1wl": {
+    "dl_nm": 4.0,
+    "n_wl": 1,
+    "n_cells": 11223570,
+    "est_flex": 0.5818860979910505
+  },
+  "budget": {
+    "align_16nm": 0.7000000000000001,
+    "nominal_spectra": 0.1,
+    "etch_1wl": 0.2,
+    "conv_8nm": 0.32256398474697434,
+    "conv_4nm": 2.327544391964202,
+    "sum_known": 3.6501083767111764
+  }
+}

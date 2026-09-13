@@ -1,0 +1,17 @@
+__pycache__/
+*.py[cod]
+*.nbc
+*.nbi
+.env
+.env.*
+*.hdf5
+*.log
+.DS_Store
+Thumbs.db
+analysis/results/tidy3d_align/
+analysis/results/tidy3d_batch/
+analysis/results/tidy3d_compare_v2/
+analysis/results/tidy3d_conv/
+analysis/photonic_coupler/__pycache__/
+analysis/photonic_coupler/*.nbc
+analysis/photonic_coupler/*.nbi

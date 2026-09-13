@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Silicon grating coupler — lab notebook</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<nav>
+  <a href="#start">Start</a>
+  <a href="#draft">The draft</a>
+  <a href="#problem">The problem</a>
+  <a href="#errors">Three errors</a>
+  <a href="#analytic">Analytic</a>
+  <a href="#fdtd">In-house FDTD</a>
+  <a href="#tidy3d">Tidy3D</a>
+  <a href="#tolerance">Tolerance</a>
+  <a href="#claims">What we claim</a>
+</nav>
+<main>
+  <header class="hero" id="start">
+    <h1>A coupler design that had to survive Maxwell, not a prompt.</h1>
+    <p class="lede">
+      This notebook is the working record of a silicon photonic grating-coupler
+      study that began as a ChatGPT Canvas “validated framework” and was rebuilt
+      as a single-device, single-process argument. Peak efficiency is not the
+      story. Fabrication tolerance is.
+    </p>
+    <p class="meta">220 nm SOI · 70 nm shallow etch · 150 nm min CD · 8° SMF-28 · C-band TE</p>
+  </header>
+
+  <section id="draft">
+    <h2>What we started with</h2>
+    <p>
+      Three PDFs in <code>archive-llm-drafts/</code>, metadata Author =
+      “ChatGPT Canvas”. They described a multi-foundry AI coupler pipeline
+      targeting &lt;0.5&nbsp;dB insertion loss at ≥70% yield, to be proven on
+      TSMC 7&nbsp;nm versus Intel 45&nbsp;nm with 50 wafers a side. There was
+      no geometry, no Maxwell solve, and several citations attached to the
+      wrong papers. That is a mood board, not a design.
+    </p>
+    <p>
+      The salvageable idea was narrower: a <em>foundry-legal</em> grating
+      coupler whose fill is apodized for the fibre mode, and whose period
+      chirps so the radiation angle does not walk as the fill changes.
+    </p>
+  </section>
+
+  <section id="problem">
+    <h2>The actual problem</h2>
+    <p>
+      One device, one public stack. A C-band TE fibre-to-chip grating on
+      220&nbsp;nm SOI with a 70&nbsp;nm shallow etch, oxide cladding, 8°
+      SMF-28, 150&nbsp;nm minimum CD. The AIM Photonics PDK TE vertical
+      coupler sits near 2.8&nbsp;dB measured. Bozzola et al. (2015) put the
+      2-D FDTD ceiling for this platform <em>without a back-reflector</em>
+      at about −1.9&nbsp;dB (65%). Sub-0.5&nbsp;dB published devices use a
+      metal mirror, a poly-Si overlay, 340&nbsp;nm SOI, or topological
+      resonances. Those are different processes.
+    </p>
+    <figure class="fig">
+      <img src="figures/fig11_sota.png" alt="Literature coupler insertion-loss comparison" />
+      <figcaption>Published coupler results. Orange uses a back-reflector. The 0.5&nbsp;dB line is not available on standard 220&nbsp;nm SOI without extra process.</figcaption>
+    </figure>
+  </section>
+
+  <section id="errors">
+    <h2>Three errors in the first FDTD write-up — and the fix</h2>
+    <div class="warn">
+      <p><strong>Mislabelled wavelength.</strong> Tolerance sweeps were titled “1550&nbsp;nm” but the sampling grid was 1525, 1535, … 1575, which skips 1550. The code took the nearest bin (1545). Putting 1550.00 on the grid is not enough: <code>numpy.isclose</code> default <code>atol=1e-8</code> on a metre-valued wavelength array also matches 1545&nbsp;nm (5×10<sup>−9</sup>&nbsp;m). A later sweep then labelled the 1545&nbsp;nm sample as 1550.00. <em>Fix:</em> the wavelength list contains 1550.00&nbsp;nm; lookup requires a unique hit within 0.01&nbsp;nm; every sweep row stores <code>lambda_nm: 1550.0</code>; the 70&nbsp;nm etch row must match the on-grid 1550 sample or the cache is refused.</p>
+    </div>
+    <div class="warn">
+      <p><strong>Circular physics floor.</strong> The leaky-wave model multiplied an efficiency and then clamped it at 65% because Bozzola reported 65%. Yield at 0.5&nbsp;dB was then “zero” partly because the model was forbidden to exceed that clamp. That is not independent evidence. <em>Fix:</em> the clamp is gone. 0.5&nbsp;dB impossibility on this stack is argued from Bozzola’s published FDTD, from uncapped leaky-wave sitting near 2.3&nbsp;dB, and from Maxwell solves whose peaks are ~2.6–2.8&nbsp;dB — not from a line of Python that copies the literature into a <code>min()</code>.</p>
+    </div>
+    <div class="warn">
+      <p><strong>Insufficient validation.</strong> The first comparison used a 25&nbsp;nm in-house Yee grid and an |E|² cladding flux. No convergence study, no second solver, no silicon. <em>Fix:</em> Tidy3D (Flexcompute FDTD, 16&nbsp;nm, 2-D, in-coupling Gaussian → waveguide mode) is the independent check. The in-house solver remains for sweeps. Still no fabricated devices and no adjoint loop; those are listed as not done.</p>
+    </div>
+  </section>
+
+  <section id="analytic">
+    <h2>Analytic model (ranking tool, not a proof)</h2>
+    <p>
+      Slab modes of the 220&nbsp;nm and 150&nbsp;nm sections, Bloch average,
+      phase-match period 622&nbsp;nm, DRC fill window [0.24, 0.76]. A
+      leaky-wave overlap with SMF-28, calibrated so a <em>uniform</em>
+      grating matches Bozzola’s 53.7% 2-D FDTD point. That calibration is
+      an anchor for the uniform cell, not a ceiling applied to every other
+      design.
+    </p>
+    <figure class="fig">
+      <img src="figures/fig01_slab_neff.png" alt="TE slab effective index versus thickness" />
+      <figcaption>TE slab n<sub>eff</sub> and n<sub>g</sub> versus silicon thickness at 1550&nbsp;nm.</figcaption>
+    </figure>
+    <figure class="fig">
+      <img src="figures/fig06_yield_hist.png" alt="Process Monte Carlo insertion-loss histogram" />
+      <figcaption>Process Monte Carlo of the leaky-wave model. Useful as a sensitivity picture. Not a fabrication yield.</figcaption>
+    </figure>
+  </section>
+
+  <section id="fdtd">
+    <h2>In-house 2-D FDTD</h2>
+    <p>
+      Four layouts, identical constraints: uniform 50%, linear period chirp,
+      Taillaert fill apodization (period fixed), and the proposed fill plus
+      angle-preserving chirp. On-grid 1550.00&nbsp;nm: uniform
+      2.63&nbsp;dB, proposed 2.74&nbsp;dB, chirp 2.76&nbsp;dB, Taillaert
+      2.94&nbsp;dB. Fill-only is worse at the design wavelength. Combined
+      fill+chirp recovers the 1525&nbsp;nm shoulder (4.37 vs uniform
+      5.30&nbsp;dB). In-house under-etch at 58&nbsp;nm: proposed
+      3.52&nbsp;dB and chirp 3.55&nbsp;dB versus uniform 3.82&nbsp;dB —
+      chirp-only tracks proposed on this grid. Aligned Tidy3D agrees:
+      under-etch is the chirp, not a unique fill+chirp result.
+    </p>
+    <figure class="fig">
+      <img src="figures/em00_dashboard.png" alt="In-house FDTD dashboard" />
+      <figcaption>In-house FDTD dashboard. The wavelength list now includes 1550.00&nbsp;nm; a stale cache that skipped it is refused. Cite Tidy3D below for the independent 1550.00&nbsp;nm ranking.</figcaption>
+    </figure>
+    <figure class="fig">
+      <img src="figures/em05_fields.png" alt="Ey field maps uniform versus proposed" />
+      <figcaption>|E<sub>y</sub> at 1550&nbsp;nm, in-house solver. Both layouts radiate; the proposed grating is visibly apodized.</figcaption>
+    </figure>
+  </section>
+
+  <section id="tidy3d">
+    <h2>Tidy3D — independent FDTD, finer grid, exact 1550&nbsp;nm</h2>
+    <p>
+      Flexcompute Tidy3D 2.12, 2-D (y-invariant), subpixel averaging,
+      Gaussian beam in-coupling (SMF-28 waist, 8°, S-pol / E<sub>y</sub>)
+      into a waveguide mode monitor. The full-height strip now runs through
+      the −x PML. Fiber x is maximised at 1550.00&nbsp;nm (−2.0&nbsp;µm from
+      the grating midpoint for all four layouts) and frozen for etch and
+      the 16→8→4&nbsp;nm series. Fill-only is on the etch sweep.
+    </p>
+    <p id="tidy-status" class="status">Loading Tidy3D results…</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Design</th>
+          <th class="num">IL at 1550.00 nm</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody id="tidy-table">
+        <tr><td colspan="3">Waiting for <code>tidy3d_compare.json</code>.</td></tr>
+      </tbody>
+    </table>
+    <figure class="fig">
+      <img src="figures/td00_spectra_etch.png" alt="Tidy3D spectra and etch sweep including chirp" />
+      <figcaption>Aligned Tidy3D, Δℓ = 16 nm. Left: spectra at 1550.00 nm on the grid. Right: etch sweep including fill-only.</figcaption>
+    </figure>
+    <figure class="fig">
+      <img src="figures/td01_bars_1550.png" alt="Tidy3D insertion loss bars at exact 1550 nm" />
+      <figcaption>Aligned in-coupling at 1550.00&nbsp;nm, 16&nbsp;nm grid. Uniform 2.66&nbsp;dB still leads.</figcaption>
+    </figure>
+    <figure class="fig">
+      <img src="figures/td02_worst_etch.png" alt="Worst-case insertion loss over etch settings" onerror="this.parentElement.style.display='none'" />
+      <figcaption>Worst of {58, 70, 82} nm etch at 1550.00 nm. Under-etch kindness is not this number.</figcaption>
+    </figure>
+    <figure class="fig">
+      <img src="figures/td03_align.png" alt="Insertion loss versus fiber longitudinal offset" onerror="this.parentElement.style.display='none'" />
+      <figcaption>Matched alignment: IL versus fiber x-offset from the grating midpoint, 1550.00 nm.</figcaption>
+    </figure>
+    <figure class="fig">
+      <img src="figures/td04_converge.png" alt="Insertion loss versus FDTD grid size" onerror="this.parentElement.style.display='none'" />
+      <figcaption>Mesh series 16 → 8 → 4 nm at frozen geometry and frozen fiber offset.</figcaption>
+    </figure>
+    <p>
+      Re-run, aligned, waveguide continued, fill-only on the etch plot.
+      At 16&nbsp;nm / 1550.00&nbsp;nm: uniform 2.66&nbsp;dB, proposed
+      2.76&nbsp;dB, chirp 2.84&nbsp;dB, Taillaert 2.85&nbsp;dB. Under-etch
+      58&nbsp;nm: proposed 3.22 ≈ chirp 3.24, uniform 3.50, Taillaert
+      3.69 — fill-only is the worst, not a hidden champion. Over-etch
+      82&nbsp;nm still favours uniform (2.81 vs proposed 3.29). Mesh:
+      uniform is stable (2.66→2.69&nbsp;dB from 16 to 4&nbsp;nm); proposed
+      drifts 2.76→2.99&nbsp;dB. Do not start adjoint on the 16&nbsp;nm
+      apodized ranking.
+    </p>
+  </section>
+
+  <section id="tolerance">
+    <h2>The lead: fabrication tolerance</h2>
+    <p>
+      Partial etch is the first-order process error. With fill-only on
+      the plot, under-etch help is shared by chirp and proposed; Taillaert
+      is the worst 58&nbsp;nm cell. Over-etch still wants uniform. Worst
+      of {58, 70, 82}&nbsp;nm at 16&nbsp;nm: proposed 3.29, chirp 3.42,
+      uniform 3.50, Taillaert 3.69. That is a three-point min-max, not a
+      yield, and proposed is still moving under mesh refinement.
+    </p>
+    <figure class="fig">
+      <img src="figures/td00_spectra_etch.png" alt="Tidy3D insertion loss versus etch depth including chirp" />
+      <figcaption>Aligned Tidy3D etch sweep at 1550.00&nbsp;nm, fill-only included. Under-etch is chirp±fill, not unique fill+chirp. Over-etch is uniform.</figcaption>
+    </figure>
+    <figure class="fig">
+      <img src="figures/em03_etch.png" alt="In-house insertion loss versus etch depth" />
+      <figcaption>In-house etch sweep at 1550.00&nbsp;nm, chirp included. 70&nbsp;nm point is the on-grid 1550 sample (2.63&nbsp;dB uniform), not a 1545&nbsp;nm alias. Chirp-only tracks proposed under-etch here; Tidy3D does not agree.</figcaption>
+    </figure>
+    <figure class="fig">
+      <img src="figures/em07_verdict.png" alt="Verdict table of what improved and what did not" />
+      <figcaption>In-house verdict card, rebuilt from on-grid 1550.00&nbsp;nm numbers. Peak IL is not the proposed cell’s argument.</figcaption>
+    </figure>
+  </section>
+
+  <section id="claims">
+    <h2>What we claim, and what we do not</h2>
+    <div class="paper">
+      <h3>Claim</h3>
+      <p>
+        On this stack, 0.5&nbsp;dB is not available. After fixing the
+        waveguide, aligning the fiber, putting fill-only on the etch
+        sweep, and running 16→8→4&nbsp;nm: uniform still wins at
+        1550.00&nbsp;nm (2.69&nbsp;dB at 4&nbsp;nm). Proposed drifts
+        under refinement (2.76→2.99&nbsp;dB). Fill-only is the worst
+        under-etch cell. Adjoint inverse design is not next.
+      </p>
+      <h3>Do not claim</h3>
+      <p>
+        No fabricated devices. No adjoint inverse-design loop. No 3-D
+        focusing grating. No multi-foundry study. No 70–90% datacentre
+        energy cut from the coupler. TSMC 7&nbsp;nm and Intel 45&nbsp;nm
+        are the wrong objects. Yield at 0.5&nbsp;dB is zero because the
+        uncapped model and the published 220&nbsp;nm ceiling sit near
+        2&nbsp;dB — not because a Python <code>min()</code> copied
+        Bozzola’s 65% into the Monte Carlo.
+      </p>
+    </div>
+    <p>
+      Reproduce: <code>python analysis/run_study.py</code>,
+      <code>python analysis/run_em_compare.py --rerun</code>,
+      <code>python analysis/run_tidy3d_compare.py</code>.
+      This page: <code>python photonic/gui/app.py</code>.
+    </p>
+  </section>
+
+<footer class="pub">
+  <p>
+    Public source:
+    <a href="https://github.com/nerdfreakuser/silicon-grating-coupler">github.com/nerdfreakuser/silicon-grating-coupler</a>.
+    <a href="paper/Photonic_Coupler_Technical_Report.pdf">Technical report PDF</a>.
+    <a href="paper/FDTD_Comparison.pdf">FDTD note PDF</a>.
+  </p>
+</footer>
+
+</main>
+<script src="app.js"></script>
+</body>
+</html>

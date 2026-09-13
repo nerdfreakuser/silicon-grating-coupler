@@ -1,0 +1,11 @@
+cff-version: 1.2.0
+title: "Foundry-constrained yield-aware design of silicon grating couplers"
+message: If you use this study, cite the GitHub repository.
+type: software
+authors:
+  - family-names: Warriner
+    given-names: Daniel
+repository-code: https://github.com/nerdfreakuser/silicon-grating-coupler
+url: https://nerdfreakuser.github.io/silicon-grating-coupler/
+license: MIT
+date-released: "2026-09-13"

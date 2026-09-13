@@ -1,0 +1,474 @@
+{
+  "jobs": {
+    "conv8_uniform": {
+      "design": "uniform",
+      "etch_nm": 70.0,
+      "kind": "convergence",
+      "x_fib_offset_um": -2.0,
+      "dl_nm": 8.0,
+      "geom": {
+        "design": "uniform",
+        "x_g0_um": 7.155460165784859,
+        "x_g1_um": 19.28135309700385,
+        "x_left_um": -2.5,
+        "x_right_um": 22.78135309700385,
+        "sim_xmin_um": -2.5,
+        "sim_xmax_um": 22.78135309700385,
+        "wg_extra_lo_um": -5.5,
+        "wg_extra_hi_um": 7.155460165784859,
+        "wg_covers_xmin": true,
+        "x_fib_mid_um": 13.218406631394355,
+        "x_fib_um": 11.218406631394355,
+        "x_fib_offset_um": -2.0,
+        "x_mon_um": 4.655460165784859,
+        "dl_nm": 8.0,
+        "etch_nm": 70.0,
+        "n_cells": 2846995
+      },
+      "wavelengths_nm": [
+        1550.0
+      ],
+      "ce_left": [
+        0.5416956597725696
+      ],
+      "ce_right": [
+        8.546777727215227e-05
+      ],
+      "ce": [
+        0.5416956597725696
+      ],
+      "il_db": [
+        2.6624464409596977
+      ],
+      "ce_1550": 0.5416956597725696,
+      "il_1550_db": 2.6624464409596977,
+      "lambda_reported_nm": 1550.0,
+      "p_left_minus": [
+        0.5416956597725696
+      ],
+      "p_left_plus": [
+        1.0753924660151322e-08
+      ],
+      "p_right_minus": [
+        5.596979578669091e-13
+      ],
+      "p_right_plus": [
+        8.546777727215227e-05
+      ],
+      "i1550": 0,
+      "n_cells": 2846995
+    },
+    "conv8_chirp": {
+      "design": "chirp",
+      "etch_nm": 70.0,
+      "kind": "convergence",
+      "x_fib_offset_um": -2.0,
+      "dl_nm": 8.0,
+      "geom": {
+        "design": "chirp",
+        "x_g0_um": 7.150460165784859,
+        "x_g1_um": 19.27635309700385,
+        "x_left_um": -2.5,
+        "x_right_um": 22.77635309700385,
+        "sim_xmin_um": -2.5,
+        "sim_xmax_um": 22.77635309700385,
+        "wg_extra_lo_um": -5.5,
+        "wg_extra_hi_um": 7.150460165784859,
+        "wg_covers_xmin": true,
+        "x_fib_mid_um": 13.213406631394355,
+        "x_fib_um": 11.213406631394355,
+        "x_fib_offset_um": -2.0,
+        "x_mon_um": 4.650460165784859,
+        "dl_nm": 8.0,
+        "etch_nm": 70.0,
+        "n_cells": 2846100
+      },
+      "wavelengths_nm": [
+        1550.0
+      ],
+      "ce_left": [
+        0.5080608565452213
+      ],
+      "ce_right": [
+        0.0002242489980755712
+      ],
+      "ce": [
+        0.5080608565452213
+      ],
+      "il_db": [
+        2.9408426393888543
+      ],
+      "ce_1550": 0.5080608565452213,
+      "il_1550_db": 2.9408426393888543,
+      "lambda_reported_nm": 1550.0,
+      "p_left_minus": [
+        0.5080608565452213
+      ],
+      "p_left_plus": [
+        9.296151641836734e-09
+      ],
+      "p_right_minus": [
+        6.642356420991217e-12
+      ],
+      "p_right_plus": [
+        0.0002242489980755712
+      ],
+      "i1550": 0,
+      "n_cells": 2846100
+    },
+    "conv8_taillaert": {
+      "design": "taillaert",
+      "etch_nm": 70.0,
+      "kind": "convergence",
+      "x_fib_offset_um": -2.0,
+      "dl_nm": 8.0,
+      "geom": {
+        "design": "taillaert",
+        "x_g0_um": 7.075,
+        "x_g1_um": 19.20089293121899,
+        "x_left_um": -2.5,
+        "x_right_um": 22.70089293121899,
+        "sim_xmin_um": -2.5,
+        "sim_xmax_um": 22.70089293121899,
+        "wg_extra_lo_um": -5.5,
+        "wg_extra_hi_um": 7.075,
+        "wg_covers_xmin": true,
+        "x_fib_mid_um": 13.137946465609495,
+        "x_fib_um": 11.137946465609495,
+        "x_fib_offset_um": -2.0,
+        "x_mon_um": 4.575,
+        "dl_nm": 8.0,
+        "etch_nm": 70.0,
+        "n_cells": 2838045
+      },
+      "wavelengths_nm": [
+        1550.0
+      ],
+      "ce_left": [
+        0.5154437345619928
+      ],
+      "ce_right": [
+        0.0005667208878143624
+      ],
+      "ce": [
+        0.5154437345619928
+      ],
+      "il_db": [
+        2.8781873504175404
+      ],
+      "ce_1550": 0.5154437345619928,
+      "il_1550_db": 2.8781873504175404,
+      "lambda_reported_nm": 1550.0,
+      "p_left_minus": [
+        0.5154437345619928
+      ],
+      "p_left_plus": [
+        9.899322290659268e-09
+      ],
+      "p_right_minus": [
+        4.992888966250769e-11
+      ],
+      "p_right_plus": [
+        0.0005667208878143624
+      ],
+      "i1550": 0,
+      "n_cells": 2838045
+    },
+    "conv8_proposed": {
+      "design": "proposed",
+      "etch_nm": 70.0,
+      "kind": "convergence",
+      "x_fib_offset_um": -2.0,
+      "dl_nm": 8.0,
+      "geom": {
+        "design": "proposed",
+        "x_g0_um": 7.0750695239703285,
+        "x_g1_um": 19.198348489506202,
+        "x_left_um": -2.5,
+        "x_right_um": 22.698348489506202,
+        "sim_xmin_um": -2.5,
+        "sim_xmax_um": 22.698348489506202,
+        "wg_extra_lo_um": -5.5,
+        "wg_extra_hi_um": 7.0750695239703285,
+        "wg_covers_xmin": true,
+        "x_fib_mid_um": 13.136709006738265,
+        "x_fib_um": 11.136709006738265,
+        "x_fib_offset_um": -2.0,
+        "x_mon_um": 4.5750695239703285,
+        "dl_nm": 8.0,
+        "etch_nm": 70.0,
+        "n_cells": 2837150
+      },
+      "wavelengths_nm": [
+        1550.0
+      ],
+      "ce_left": [
+        0.515937103990256
+      ],
+      "ce_right": [
+        0.000574668950670013
+      ],
+      "ce": [
+        0.515937103990256
+      ],
+      "il_db": [
+        2.874032384015825
+      ],
+      "ce_1550": 0.515937103990256,
+      "il_1550_db": 2.874032384015825,
+      "lambda_reported_nm": 1550.0,
+      "p_left_minus": [
+        0.515937103990256
+      ],
+      "p_left_plus": [
+        8.297857339537028e-09
+      ],
+      "p_right_minus": [
+        2.973487375221394e-11
+      ],
+      "p_right_plus": [
+        0.000574668950670013
+      ],
+      "i1550": 0,
+      "n_cells": 2837150
+    },
+    "conv4_uniform": {
+      "design": "uniform",
+      "etch_nm": 70.0,
+      "kind": "convergence",
+      "x_fib_offset_um": -2.0,
+      "dl_nm": 4.0,
+      "geom": {
+        "design": "uniform",
+        "x_g0_um": 7.155460165784859,
+        "x_g1_um": 19.28135309700385,
+        "x_left_um": -2.5,
+        "x_right_um": 22.78135309700385,
+        "sim_xmin_um": -2.5,
+        "sim_xmax_um": 22.78135309700385,
+        "wg_extra_lo_um": -5.5,
+        "wg_extra_hi_um": 7.155460165784859,
+        "wg_covers_xmin": true,
+        "x_fib_mid_um": 13.218406631394355,
+        "x_fib_um": 11.218406631394355,
+        "x_fib_offset_um": -2.0,
+        "x_mon_um": 4.655460165784859,
+        "dl_nm": 4.0,
+        "etch_nm": 70.0,
+        "n_cells": 11223570
+      },
+      "wavelengths_nm": [
+        1550.0
+      ],
+      "ce_left": [
+        0.5381913791057048
+      ],
+      "ce_right": [
+        8.526654760917596e-05
+      ],
+      "ce": [
+        0.5381913791057048
+      ],
+      "il_db": [
+        2.6906326316239353
+      ],
+      "ce_1550": 0.5381913791057048,
+      "il_1550_db": 2.6906326316239353,
+      "lambda_reported_nm": 1550.0,
+      "p_left_minus": [
+        0.5381913791057048
+      ],
+      "p_left_plus": [
+        1.0761266184342765e-08
+      ],
+      "p_right_minus": [
+        8.82341102511146e-13
+      ],
+      "p_right_plus": [
+        8.526654760917596e-05
+      ],
+      "i1550": 0,
+      "n_cells": 11223570
+    },
+    "conv4_chirp": {
+      "design": "chirp",
+      "etch_nm": 70.0,
+      "kind": "convergence",
+      "x_fib_offset_um": -2.0,
+      "dl_nm": 4.0,
+      "geom": {
+        "design": "chirp",
+        "x_g0_um": 7.150460165784859,
+        "x_g1_um": 19.27635309700385,
+        "x_left_um": -2.5,
+        "x_right_um": 22.77635309700385,
+        "sim_xmin_um": -2.5,
+        "sim_xmax_um": 22.77635309700385,
+        "wg_extra_lo_um": -5.5,
+        "wg_extra_hi_um": 7.150460165784859,
+        "wg_covers_xmin": true,
+        "x_fib_mid_um": 13.213406631394355,
+        "x_fib_um": 11.213406631394355,
+        "x_fib_offset_um": -2.0,
+        "x_mon_um": 4.650460165784859,
+        "dl_nm": 4.0,
+        "etch_nm": 70.0,
+        "n_cells": 11221800
+      },
+      "wavelengths_nm": [
+        1550.0
+      ],
+      "ce_left": [
+        0.4964933349268157
+      ],
+      "ce_right": [
+        0.0002493786958711626
+      ],
+      "ce": [
+        0.4964933349268157
+      ],
+      "il_db": [
+        3.0408657722687664
+      ],
+      "ce_1550": 0.4964933349268157,
+      "il_1550_db": 3.0408657722687664,
+      "lambda_reported_nm": 1550.0,
+      "p_left_minus": [
+        0.4964933349268157
+      ],
+      "p_left_plus": [
+        7.270213845096154e-09
+      ],
+      "p_right_minus": [
+        6.375228667971675e-12
+      ],
+      "p_right_plus": [
+        0.0002493786958711626
+      ],
+      "i1550": 0,
+      "n_cells": 11221800
+    },
+    "conv4_taillaert": {
+      "design": "taillaert",
+      "etch_nm": 70.0,
+      "kind": "convergence",
+      "x_fib_offset_um": -2.0,
+      "dl_nm": 4.0,
+      "geom": {
+        "design": "taillaert",
+        "x_g0_um": 7.075,
+        "x_g1_um": 19.20089293121899,
+        "x_left_um": -2.5,
+        "x_right_um": 22.70089293121899,
+        "sim_xmin_um": -2.5,
+        "sim_xmax_um": 22.70089293121899,
+        "wg_extra_lo_um": -5.5,
+        "wg_extra_hi_um": 7.075,
+        "wg_covers_xmin": true,
+        "x_fib_mid_um": 13.137946465609495,
+        "x_fib_um": 11.137946465609495,
+        "x_fib_offset_um": -2.0,
+        "x_mon_um": 4.575,
+        "dl_nm": 4.0,
+        "etch_nm": 70.0,
+        "n_cells": 11188170
+      },
+      "wavelengths_nm": [
+        1550.0
+      ],
+      "ce_left": [
+        0.5100863530040154
+      ],
+      "ce_right": [
+        0.0006079214555454243
+      ],
+      "ce": [
+        0.5100863530040154
+      ],
+      "il_db": [
+        2.923562955520003
+      ],
+      "ce_1550": 0.5100863530040154,
+      "il_1550_db": 2.923562955520003,
+      "lambda_reported_nm": 1550.0,
+      "p_left_minus": [
+        0.5100863530040154
+      ],
+      "p_left_plus": [
+        9.214132727368343e-09
+      ],
+      "p_right_minus": [
+        2.006608156505568e-11
+      ],
+      "p_right_plus": [
+        0.0006079214555454243
+      ],
+      "i1550": 0,
+      "n_cells": 11188170
+    },
+    "conv4_proposed": {
+      "design": "proposed",
+      "etch_nm": 70.0,
+      "kind": "convergence",
+      "x_fib_offset_um": -2.0,
+      "dl_nm": 4.0,
+      "geom": {
+        "design": "proposed",
+        "x_g0_um": 7.0750695239703285,
+        "x_g1_um": 19.198348489506202,
+        "x_left_um": -2.5,
+        "x_right_um": 22.698348489506202,
+        "sim_xmin_um": -2.5,
+        "sim_xmax_um": 22.698348489506202,
+        "wg_extra_lo_um": -5.5,
+        "wg_extra_hi_um": 7.0750695239703285,
+        "wg_covers_xmin": true,
+        "x_fib_mid_um": 13.136709006738265,
+        "x_fib_um": 11.136709006738265,
+        "x_fib_offset_um": -2.0,
+        "x_mon_um": 4.5750695239703285,
+        "dl_nm": 4.0,
+        "etch_nm": 70.0,
+        "n_cells": 11186400
+      },
+      "wavelengths_nm": [
+        1550.0
+      ],
+      "ce_left": [
+        0.5020570638772089
+      ],
+      "ce_right": [
+        0.0006537162018430925
+      ],
+      "ce": [
+        0.5020570638772089
+      ],
+      "il_db": [
+        2.992469180770091
+      ],
+      "ce_1550": 0.5020570638772089,
+      "il_1550_db": 2.992469180770091,
+      "lambda_reported_nm": 1550.0,
+      "p_left_minus": [
+        0.5020570638772089
+      ],
+      "p_left_plus": [
+        6.415961178245191e-09
+      ],
+      "p_right_minus": [
+        1.4552858514771924e-11
+      ],
+      "p_right_plus": [
+        0.0006537162018430925
+      ],
+      "i1550": 0,
+      "n_cells": 11186400
+    }
+  },
+  "best_offset_um": {
+    "uniform": -2.0,
+    "chirp": -2.0,
+    "taillaert": -2.0,
+    "proposed": -2.0
+  }
+}
