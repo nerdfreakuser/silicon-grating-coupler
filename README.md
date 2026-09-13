@@ -1,7 +1,8 @@
 # Silicon grating coupler — technical report and design kit
 
 **Live lab notebook (GitHub Pages):** https://nerdfreakuser.github.io/silicon-grating-coupler/  
-**Source:** https://github.com/nerdfreakuser/silicon-grating-coupler
+**Source:** https://github.com/nerdfreakuser/silicon-grating-coupler  
+**Page views:** https://silicon-grating-coupler.goatcounter.com (create that free GoatCounter site once; see below)
 
 C-band TE fibre-to-chip grating couplers on a public 220 nm SOI MPW stack. One device, one process, analytic ranking, in-house 2-D FDTD, independent Tidy3D, honest claims.
 
@@ -49,6 +50,16 @@ python gui/build_pages.py                  # static snapshot -> docs/ (GitHub Pa
 ```
 
 Requires numpy, scipy, matplotlib. `analysis/requirements.txt` lists them. Tidy3D is optional; the batch result is already in `analysis/results/tidy3d_compare.json`. Do not commit a Tidy3D API key; `.env` is gitignored.
+
+## Page views
+
+GitHub Pages does not count visitors. The published notebook sends cookieless hits to [GoatCounter](https://www.goatcounter.com/) (free for non-commercial sites, no unique-user cookies).
+
+1. Open https://www.goatcounter.com/signup
+2. Create a site with code **`silicon-grating-coupler`** (dashboard: https://silicon-grating-coupler.goatcounter.com).
+3. In settings, turn on the public dashboard if you want the **Traffic** footer link to work for anyone.
+
+Until that site exists, the tracking script loads but counts go nowhere. Repo clones and GitHub.com traffic are separate, under [Insights → Traffic](https://github.com/nerdfreakuser/silicon-grating-coupler/graphs/traffic).
 
 ## What this is not
 

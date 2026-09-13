@@ -33,13 +33,29 @@ PDF_FILES = (
     DESIGN / "mpw-protocol.md",
 )
 
-FOOTER = """
+# Cookieless pageviews for the published notebook only (not localhost).
+# Dashboard: https://silicon-grating-coupler.goatcounter.com
+# Create the free site once at https://www.goatcounter.com/signup
+# with code silicon-grating-coupler, then enable “public dashboard”.
+GOATCOUNTER = "silicon-grating-coupler"
+
+ANALYTICS = f"""
+<script data-goatcounter="https://{GOATCOUNTER}.goatcounter.com/count"
+        async src="https://gc.zgo.at/count.js"></script>
+<noscript>
+  <img src="https://{GOATCOUNTER}.goatcounter.com/count?p=/" alt=""
+       width="1" height="1" style="border:0;position:absolute" />
+</noscript>
+"""
+
+FOOTER = f"""
 <footer class="pub">
   <p>
     Public source:
     <a href="https://github.com/nerdfreakuser/silicon-grating-coupler">github.com/nerdfreakuser/silicon-grating-coupler</a>.
     <a href="paper/Photonic_Coupler_Technical_Report.pdf">Technical report PDF</a>.
     <a href="paper/FDTD_Comparison.pdf">FDTD note PDF</a>.
+    <a href="https://{GOATCOUNTER}.goatcounter.com">Traffic</a>.
   </p>
 </footer>
 """
@@ -70,6 +86,10 @@ def main() -> None:
     html = html.replace('src="/static/app.js"', 'src="app.js"')
     html = html.replace('src="/fig/', 'src="figures/')
     html = html.replace("</main>", FOOTER + "\n</main>")
+    if "</body>" in html:
+        html = html.replace("</body>", ANALYTICS + "\n</body>")
+    else:
+        html += ANALYTICS
     (OUT / "index.html").write_text(html, encoding="utf-8")
 
     css = (STATIC / "style.css").read_text(encoding="utf-8") + FOOTER_CSS
