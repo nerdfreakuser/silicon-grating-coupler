@@ -41,7 +41,7 @@ GOATCOUNTER = "silicon-grating-coupler"
 
 ANALYTICS = f"""
 <script data-goatcounter="https://{GOATCOUNTER}.goatcounter.com/count"
-        async src="https://gc.zgo.at/count.js"></script>
+        async src="//gc.zgo.at/count.js"></script>
 <noscript>
   <img src="https://{GOATCOUNTER}.goatcounter.com/count?p=/" alt=""
        width="1" height="1" style="border:0;position:absolute" />
