@@ -1,9 +1,8 @@
 # MPW pilot protocol (device-level, one foundry)
 
-**Status:** Draft, 13 September 2026  
-**This replaces** `archive-llm-drafts/Supplementary Pilot Protocol.pdf`.
+**Status:** Draft, 13 September 2026
 
-The archived protocol was a 2×2 factorial on TSMC 7 nm vs Intel 45 nm, 50 wafers per fab, $500k, 6 months, ANOVA + Bonferroni + Bayesian hierarchical + KL on the same three endpoints. None of that is a silicon-photonics coupler experiment.
+Device-level protocol for one 220 nm SOI MPW. The experimental unit is a coupler, not a wafer.
 
 ---
 

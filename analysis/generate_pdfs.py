@@ -239,8 +239,8 @@ def report_story():
     story.append(P("Foundry-Constrained Yield-Aware Design of Silicon Grating Couplers", "CoverTitle"))
     story.append(
         P(
-            "A technical report replacing an LLM-generated “validated framework.” "
-            "One device, one process, derived math, runnable code.",
+            "One device, one process, derived math, runnable code. "
+            "C-band TE grating coupler on 220 nm SOI.",
             "CoverSub",
         )
     )
@@ -263,7 +263,7 @@ def report_story():
             "70 nm shallow etch, 2 µm BOX, 150 nm minimum CD, 8° SMF-28 in oxide. The Maxwell "
             "problem is non-convex. PDK rules are hard constraints. Yield is the probability that "
             "insertion loss at 1550 nm stays below a specification under published within-wafer "
-            "variation, not a 50-wafer binomial at two logic nodes."
+            "variation. The experimental unit is a device, not a wafer."
         )
     )
     story.append(
@@ -284,7 +284,7 @@ def report_story():
     )
     story.append(
         P(
-            "The archived draft’s 0.3 dB / 70% yield target sits below the published −1.9 dB physics "
+            "A 0.3 dB / 70% yield target sits below the published −1.9 dB physics "
             "floor for 220 nm SOI without a back-reflector. That 65% figure is Bozzola’s published "
             "2-D FDTD result, not a min() applied to this model. Tidy3D 2-D at exact 1550.00 nm, "
             "waveguide through the −x PML, fiber aligned, 16→8→4 nm: uniform still wins "
@@ -297,17 +297,14 @@ def report_story():
         )
     )
 
-    story.append(P("1.  Why this document exists", "H1"))
+    story.append(P("1.  Scope", "H1"))
     story.append(
         P(
-            "The three PDFs previously in this folder (now <font face='Courier'>archive-llm-drafts/</font>, "
-            "PDF Author = “ChatGPT Canvas”) described a validated multi-foundry AI coupler framework "
-            "targeting &lt;0.5 dB at ≥70% yield, with a 2×2 factorial on TSMC 7 nm versus Intel 45 nm, "
-            "50 wafers per fab, and a $500k budget. They contained no geometry, no Maxwell solve, and "
-            "no original data. Several citations were attached to the wrong papers. That draft is a list "
-            "of topics. This report picks one device, writes the optimization problem with the right "
-            "objects, computes what can be computed without an FDTD licence, and sizes an experiment "
-            "that exists on a price list."
+            "This report picks one device and one public process: a C-band TE grating coupler on "
+            "220 nm SOI. It writes the optimization problem with fields, chance constraints, and DRC; "
+            "computes what 2-D FDTD can compute; and sizes an MPW experiment that exists on a price list. "
+            "Non-goals: quantum, cryogenic, datacenter TCO, and any claim that this pipeline has been "
+            "validated in silicon."
         )
     )
 
@@ -315,9 +312,7 @@ def report_story():
     story.append(
         P(
             "220 nm SOI with a ~70 nm shallow etch is the default of AIM Photonics, imec iSiPP, AMF, "
-            "and Cornerstone. It is not TSMC N7 and not Intel 45 nm CMOS. TSMC’s silicon-photonics "
-            "offering is a 65 nm-class photonics flow plus COUPE packaging. Shipping the same coupler "
-            "mask to “TSMC 7 nm and Intel 45 nm” is not a generalization study."
+            "and Cornerstone. It is a photonics MPW stack, not a logic CMOS node."
         )
     )
     story.append(
@@ -437,12 +432,10 @@ def report_story():
     )
     story.append(
         P(
-            "The archived scalarization f = ω<sub>1</sub>L − ω<sub>2</sub>Y + ω<sub>3</sub>T + ω<sub>4</sub>P "
-            "with KKT conditions, “bandgap invariants,” and Sobol indices in the same paragraph is not a "
-            "formulation. L, Y, T, P have different units. FDTD coupler loss is non-convex, so KKT is "
-            "not a solution method. Yield is a discontinuous functional of process. PDK rules are "
-            "indicators, not a soft fourth term. Bandgap invariants are a topological-photonics tool, "
-            "not a general coupler certificate."
+            "A weighted sum f = ω<sub>1</sub>L − ω<sub>2</sub>Y + ω<sub>3</sub>T + ω<sub>4</sub>P "
+            "is not the problem we want. L, Y, T, P have different units. FDTD coupler loss is non-convex, "
+            "so KKT is not a solution method. Yield is a discontinuous functional of process. PDK rules are "
+            "indicators, not a soft fourth term."
         )
     )
     story.append(
@@ -478,7 +471,7 @@ def report_story():
     story.extend(
         fig(
             "fig05_thermal.png",
-            "Figure 7.  Extra IL at 1550 nm versus temperature. The archived 0.01 dB/°C × 20°C line is 0.20 dB.",
+            "Figure 7.  Extra IL at 1550 nm versus temperature. A linear 0.01 dB/°C × 20°C line would be 0.20 dB; the model is quadratic and much smaller.",
         )
     )
 
@@ -562,7 +555,7 @@ def report_story():
                     f"{en['pdk_to_0p5dB']['pj_saved']:.2f} pJ/bit",
                 ],
                 [
-                    "3.0 → 0.3 dB (draft setup)",
+                    "3.0 → 0.3 dB (if it existed)",
                     f"{en['from3p0_to_0p3']['laser_optical_scale']:.2f}×",
                     f"{100*en['from3p0_to_0p3']['module_fraction_saved']:.1f}%",
                     f"{en['from3p0_to_0p3']['pj_saved']:.2f} pJ/bit",
@@ -575,23 +568,22 @@ def report_story():
     story.extend(
         fig(
             "fig09_energy.png",
-            "Figure 11.  Module-energy fraction saved versus improved coupler IL. The 70% line is the archived claim.",
+            "Figure 11.  Module-energy fraction saved versus improved coupler IL. A 70% module cut is not available from the coupler.",
         )
     )
     story.append(
         P(
-            "The archived “70–90% reduction versus copper, 5–10 pJ/bit → &lt;0.5 pJ/bit” does not follow "
-            "from a coupler. Sub-pJ/bit transmitters exist; they get there by killing SERDES and DSP. "
-            "A coupler improvement is worth about one pJ/bit on a pluggable."
+            "A 70–90% reduction versus copper does not follow from a coupler. Sub-pJ/bit transmitters "
+            "exist; they get there by killing SERDES and DSP. A coupler improvement is worth about "
+            "one pJ/bit on a pluggable."
         )
     )
 
     story.append(P("8.  An experiment that can be purchased", "H1"))
     story.append(
         P(
-            "The archived protocol used G*Power to get n = 46 <i>wafers</i> to detect 70% versus 50% yield. "
-            "Yield of a coupler is measured on devices. A 25 mm² AIM die holds hundreds of 40 µm × 40 µm "
-            "focusing couplers. Textbook sizes, α = 0.05, 80% power:"
+            "Yield of a coupler is measured on devices, not wafers. A 25 mm² AIM die holds hundreds of "
+            "40 µm × 40 µm focusing couplers. Textbook sizes, α = 0.05, 80% power:"
         )
     )
     story.append(
@@ -601,45 +593,24 @@ def report_story():
                 ["Two-proportion yield 50% vs 70%", "20 points", f"{st['n_per_arm_yield_50_vs_70']} devices"],
                 ["Two-sample t, ΔIL = 0.30 dB, σ = 0.30 dB", "mean IL", f"{st['n_per_arm_mean_il_0p3dB_sigma_0p3']} devices"],
                 ["Paired t, σ_diff = 0.20 dB", "0.30 dB", f"{st['n_paired_0p3dB_sigma_diff_0p2']} pairs"],
-                ["Archived draft", "50 wafers × 2 fabs", "not a test"],
             ],
             [2.6 * inch, 1.8 * inch, 2.0 * inch],
         )
     )
     story.append(Spacer(1, 6))
-    story.extend(fig("fig10_sample_size.png", "Figure 12.  Device-level sample size. Fifty wafers is not the answer."))
+    story.extend(fig("fig10_sample_size.png", "Figure 12.  Device-level sample size for a yield or mean-IL test."))
     story.append(
         P(
             "Put 100 PDK loopbacks and 100 candidate loopbacks on one reticle, plus a period/fill ladder "
             "and PCM. AIM Photonics member price for 20 chips of a 25 mm² passive PIC is $28,600 at the "
             "published volume table (accessed 2026-09-13). Masks are in the MPW price. This is the "
-            "$30k experiment, not $500k, and it does not require a TSMC N7 NDA. Falsification: if the "
+            "$30k experiment. Falsification: if the "
             "candidate’s paired mean IL is not ≥ 0.20 dB better than the PDK cell with a 95% interval "
             "excluding zero, the design claim is false on this process — and that is publishable."
         )
     )
 
-    story.append(P("9.  Errata of the archived draft", "H1"))
-    story.append(
-        table(
-            [
-                ["Draft claim", "Fact"],
-                ["“Validated framework,” Green = multi-fab", "No data, no geometry, no fab"],
-                ["TSMC 7 nm vs Intel 45 nm", "Wrong objects. Use AIM / imec / Cornerstone 220 nm SOI"],
-                ["50 wafers × 2, $500k", "~100 devices on one MPW, ~$30k"],
-                ["IL ≤ 0.3 dB at ≥70% yield", "Below the −1.9 dB 220 nm no-mirror floor; yield 0 here"],
-                ["ω<sub>1</sub>L − ω<sub>2</sub>Y + ω<sub>3</sub>T + ω<sub>4</sub>P, KKT", "Non-convex Maxwell + chance constraint + DRC"],
-                ["0.01 dB/°C", f"{th['dlambda_dT_nm_per_K']:.3f} nm/K walk; {th['extra_il_20K_db']:.3f} dB extra in 20 K"],
-                ["70–90% energy vs copper from the coupler", f"~{100*en['from3p0_to_0p3']['module_fraction_saved']:.0f}% of a 15 pJ/bit module, laser share only"],
-                ["PMC7407772 for −0.81 dB on 300 mm wafers", "That PMC is a 2019 review; the number is Sci. Rep. 14, 53975, 10 devices on one SiN chip"],
-                ["Piggott 2015 “inverse tapers, Luxtera”", "A 2.8 µm wavelength demultiplexer"],
-                ["PDF Author: ChatGPT Canvas", "File properties"],
-            ],
-            [2.6 * inch, 3.8 * inch],
-        )
-    )
-
-    story.append(P("10.  What to do next, in order", "H1"))
+    story.append(P("9.  What to do next, in order", "H1"))
     story.append(
         P(
             "1. Done: Tidy3D re-run with waveguide through the −x PML, matched x_fib, fill-only "
@@ -657,13 +628,14 @@ def report_story():
     story.append(
         P(
             "3. One MPW, paired loopbacks, as in <font face='Courier'>design/mpw-protocol.md</font>. "
-            "That is the only “Green” that means anything."
+            "That is the experiment that can be bought."
         )
     )
     story.append(
         P(
             "4. Only then: poly-Si overlay or a foundry-legal backside mirror, if the PDK has them, "
-            "if you want sub-1 dB. Do not write a second framework paper in the meantime."
+            "if you want sub-1 dB. Do not claim inverse-design validation before the grid has "
+            "converged and an MPW exists."
         )
     )
 
@@ -721,8 +693,8 @@ def spec_story():
     story.append(P("Non-goals", "H1"))
     story.append(
         P(
-            "Sub-0.5 dB on this stack; TSMC N7 / Intel 45 nm “generalization”; quantum, cryogenic, "
-            "256-channel, TCO, or dual-use write-ups; claiming validation before FDTD and MPW exist."
+            "Sub-0.5 dB on this stack; quantum, cryogenic, 256-channel, TCO, or dual-use write-ups; "
+            "claiming validation before FDTD and MPW exist."
         )
     )
     story.append(P("Key decisions", "H1"))
@@ -825,7 +797,7 @@ def build(path: Path, story_fn, title: str):
         topMargin=0.7 * inch,
         bottomMargin=0.7 * inch,
         title=title,
-        author="Engineering technical report (not ChatGPT Canvas)",
+        author="Engineering technical report",
         creator="photonic/analysis/generate_pdfs.py",
         subject="Foundry-constrained silicon grating coupler",
     )

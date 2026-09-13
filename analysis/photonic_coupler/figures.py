@@ -1,4 +1,4 @@
-"""Publication figures. All numbers come from the models, not from the LLM draft."""
+"""Publication figures from the analytic and FDTD models."""
 
 from __future__ import annotations
 
@@ -149,8 +149,8 @@ def fig_thermal(out: Path, design, therm):
     extra = [detune_il_db(therm.dlambda_dT_nm_per_K * T, therm.fwhm_nm) for T in Ts]
     fig, ax = plt.subplots(figsize=(6.2, 3.6))
     ax.plot(Ts, extra, color="#1f4e79", label="this model (fixed laser wavelength)")
-    ax.axhline(0.01 * 20, color="#c45911", ls="--", label="LLM draft: 0.01 dB/°C × 20°C")
-    ax.axhline(0.01, color="#c45911", ls=":", label="LLM draft: 0.01 dB/°C (1 K)")
+    ax.axhline(0.01 * 20, color="#c45911", ls="--", label="linear 0.01 dB/°C × 20 K")
+    ax.axhline(0.01, color="#c45911", ls=":", label="linear 0.01 dB/°C (1 K)")
     ax.set_xlabel(r"$\Delta T$ (K) from 300 K")
     ax.set_ylabel("extra IL at 1550 nm (dB)")
     ax.legend()
@@ -167,7 +167,7 @@ def fig_yield_hist(out: Path, mc: dict):
     ax.hist(il, bins=40, color="#1f4e79", alpha=0.85, edgecolor="white", density=True)
     ax.axvline(mc["nominal_apodized_il_db"], color="black", ls="--", label="nominal apodized")
     ax.axvline(SOI220.pdk_il_db, color="#c45911", ls="--", label="AIM PDK TE GC (~2.8 dB)")
-    ax.axvline(0.5, color="0.4", ls=":", label="LLM target 0.5 dB")
+    ax.axvline(0.5, color="0.4", ls=":", label="0.5 dB spec")
     ax.axvline(1.87, color="0.5", ls="-.", label="220 nm physics floor (~1.9 dB)")
     ax.set_xlabel("insertion loss at 1550 nm (dB)")
     ax.set_ylabel("density")
@@ -222,7 +222,7 @@ def fig_energy(out: Path):
     fig, ax = plt.subplots(figsize=(6.2, 3.6))
     ax.plot(ils, frac2, label="2 couplers in path (TX+RX PIC)", color="#1f4e79")
     ax.plot(ils, frac4, label="4 couplers (naive PIC loopback)", color="#c45911")
-    ax.axhline(70, color="0.4", ls="--", label="LLM draft: 70% module energy")
+    ax.axhline(70, color="0.4", ls="--", label="70% of module energy")
     ax.set_xlabel("improved coupler IL (dB), from a 3.0 dB starting point")
     ax.set_ylabel("% of 15 pJ/bit module energy saved")
     ax.set_ylim(-2, 80)
@@ -240,7 +240,7 @@ def fig_sample_size(out: Path):
     n_t = [two_sample_t_n(d, 0.30) for d in deltas]
     fig, axes = plt.subplots(1, 2, figsize=(8.4, 3.5))
     axes[0].plot(p2 * 100, n_y, color="#1f4e79")
-    axes[0].axhline(50, color="#c45911", ls="--", label="LLM: 50 wafers")
+    axes[0].axhline(50, color="#c45911", ls="--", label="n = 50")
     axes[0].set_xlabel("alternative yield (%) vs H0=50%")
     axes[0].set_ylabel("devices per arm")
     axes[0].set_title("Two-proportion test, 80% power")

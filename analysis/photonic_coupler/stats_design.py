@@ -1,9 +1,8 @@
 """Experiment sizing. The experimental unit is a *device*, not a wafer.
 
-The LLM draft used n = 50 wafers per foundry to detect 70% vs 50% yield.
-That is the wrong unit: a grating coupler is measured per device, and a
-single MPW die holds hundreds of copies. Below are the textbook formulae
-(Fleiss / Chow for two proportions; standard two-sample t).
+A grating coupler is measured per device, and a single MPW die holds
+hundreds of copies. Wafer-level binomials are the wrong unit. Below are
+the textbook formulae (Fleiss / Chow for two proportions; standard two-sample t).
 """
 
 from __future__ import annotations

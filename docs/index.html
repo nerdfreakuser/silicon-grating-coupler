@@ -9,9 +9,8 @@
 <body>
 <nav>
   <a href="#start">Start</a>
-  <a href="#draft">The draft</a>
   <a href="#problem">The problem</a>
-  <a href="#errors">Three errors</a>
+  <a href="#method">Method</a>
   <a href="#analytic">Analytic</a>
   <a href="#fdtd">In-house FDTD</a>
   <a href="#tidy3d">Tidy3D</a>
@@ -20,35 +19,18 @@
 </nav>
 <main>
   <header class="hero" id="start">
-    <h1>A coupler design that had to survive Maxwell, not a prompt.</h1>
+    <h1>Foundry-legal grating couplers on 220&nbsp;nm SOI.</h1>
     <p class="lede">
-      This notebook is the working record of a silicon photonic grating-coupler
-      study that began as a ChatGPT Canvas “validated framework” and was rebuilt
-      as a single-device, single-process argument. Peak efficiency is not the
+      A C-band TE fibre-to-chip grating on a public MPW stack: fill apodization
+      plus an angle-preserving period chirp, checked with Maxwell, against
+      uniform, chirp-only, and fill-only cells. Peak efficiency is not the
       story. Fabrication tolerance is.
     </p>
     <p class="meta">220 nm SOI · 70 nm shallow etch · 150 nm min CD · 8° SMF-28 · C-band TE</p>
   </header>
 
-  <section id="draft">
-    <h2>What we started with</h2>
-    <p>
-      Three PDFs in <code>archive-llm-drafts/</code>, metadata Author =
-      “ChatGPT Canvas”. They described a multi-foundry AI coupler pipeline
-      targeting &lt;0.5&nbsp;dB insertion loss at ≥70% yield, to be proven on
-      TSMC 7&nbsp;nm versus Intel 45&nbsp;nm with 50 wafers a side. There was
-      no geometry, no Maxwell solve, and several citations attached to the
-      wrong papers. That is a mood board, not a design.
-    </p>
-    <p>
-      The salvageable idea was narrower: a <em>foundry-legal</em> grating
-      coupler whose fill is apodized for the fibre mode, and whose period
-      chirps so the radiation angle does not walk as the fill changes.
-    </p>
-  </section>
-
   <section id="problem">
-    <h2>The actual problem</h2>
+    <h2>The problem</h2>
     <p>
       One device, one public stack. A C-band TE fibre-to-chip grating on
       220&nbsp;nm SOI with a 70&nbsp;nm shallow etch, oxide cladding, 8°
@@ -65,16 +47,16 @@
     </figure>
   </section>
 
-  <section id="errors">
-    <h2>Three errors in the first FDTD write-up — and the fix</h2>
+  <section id="method">
+    <h2>How the numbers are produced</h2>
     <div class="warn">
-      <p><strong>Mislabelled wavelength.</strong> Tolerance sweeps were titled “1550&nbsp;nm” but the sampling grid was 1525, 1535, … 1575, which skips 1550. The code took the nearest bin (1545). Putting 1550.00 on the grid is not enough: <code>numpy.isclose</code> default <code>atol=1e-8</code> on a metre-valued wavelength array also matches 1545&nbsp;nm (5×10<sup>−9</sup>&nbsp;m). A later sweep then labelled the 1545&nbsp;nm sample as 1550.00. <em>Fix:</em> the wavelength list contains 1550.00&nbsp;nm; lookup requires a unique hit within 0.01&nbsp;nm; every sweep row stores <code>lambda_nm: 1550.0</code>; the 70&nbsp;nm etch row must match the on-grid 1550 sample or the cache is refused.</p>
+      <p><strong>Wavelength on the grid.</strong> Insertion loss at 1550&nbsp;nm is taken from a sample that sits on the wavelength list. <code>numpy.isclose</code> default <code>atol=1e-8</code> on a metre-valued array also matches 1545&nbsp;nm (5×10<sup>−9</sup>&nbsp;m), so lookup requires a unique hit within 0.01&nbsp;nm. Every sweep row stores <code>lambda_nm: 1550.0</code>. A cache whose 70&nbsp;nm etch row disagrees with the on-grid 1550 sample is refused.</p>
     </div>
     <div class="warn">
-      <p><strong>Circular physics floor.</strong> The leaky-wave model multiplied an efficiency and then clamped it at 65% because Bozzola reported 65%. Yield at 0.5&nbsp;dB was then “zero” partly because the model was forbidden to exceed that clamp. That is not independent evidence. <em>Fix:</em> the clamp is gone. 0.5&nbsp;dB impossibility on this stack is argued from Bozzola’s published FDTD, from uncapped leaky-wave sitting near 2.3&nbsp;dB, and from Maxwell solves whose peaks are ~2.6–2.8&nbsp;dB — not from a line of Python that copies the literature into a <code>min()</code>.</p>
+      <p><strong>No literature clamp on the model.</strong> Bozzola’s 65% 2-D FDTD ceiling is a published result, not a <code>min()</code> applied to this leaky-wave model. Yield at 0.5&nbsp;dB is zero because the uncapped model sits near 2.3&nbsp;dB and the Maxwell peaks sit near 2.6–2.8&nbsp;dB.</p>
     </div>
     <div class="warn">
-      <p><strong>Insufficient validation.</strong> The first comparison used a 25&nbsp;nm in-house Yee grid and an |E|² cladding flux. No convergence study, no second solver, no silicon. <em>Fix:</em> Tidy3D (Flexcompute FDTD, 16&nbsp;nm, 2-D, in-coupling Gaussian → waveguide mode) is the independent check. The in-house solver remains for sweeps. Still no fabricated devices and no adjoint loop; those are listed as not done.</p>
+      <p><strong>Independent solver.</strong> In-house 2-D Yee FDTD is used for process sweeps. Tidy3D (Flexcompute, 16→8→4&nbsp;nm, in-coupling Gaussian → waveguide mode) is the ranking check. No fabricated devices and no adjoint loop; those are listed as not done.</p>
     </div>
   </section>
 
@@ -217,12 +199,10 @@
       <h3>Do not claim</h3>
       <p>
         No fabricated devices. No adjoint inverse-design loop. No 3-D
-        focusing grating. No multi-foundry study. No 70–90% datacentre
-        energy cut from the coupler. TSMC 7&nbsp;nm and Intel 45&nbsp;nm
-        are the wrong objects. Yield at 0.5&nbsp;dB is zero because the
-        uncapped model and the published 220&nbsp;nm ceiling sit near
-        2&nbsp;dB — not because a Python <code>min()</code> copied
-        Bozzola’s 65% into the Monte Carlo.
+        focusing grating. No 70–90% module-energy cut from the coupler.
+        Yield at 0.5&nbsp;dB is zero because the uncapped model and the
+        published 220&nbsp;nm ceiling sit near 2&nbsp;dB — not because a
+        Python <code>min()</code> copies Bozzola’s 65% into the Monte Carlo.
       </p>
     </div>
     <p>

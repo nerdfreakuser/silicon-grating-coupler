@@ -152,7 +152,7 @@
       "lo": 0.7702139069356198,
       "hi": 0.8027115098023895
     },
-    "wrong_draft_n_wafers": 50
+    "n_wafers_is_the_wrong_unit": 50
   },
   "process_sigma": {
     "t_si_nm": 2.0,
@@ -163,5 +163,6 @@
     "overlay_nm": 10.0
   },
   "physics_cap_db": 1.8708664335714442,
+  "literature_220nm_ceiling_db": 1.8708664335714442,
   "pdk_il_db": 2.8
 }

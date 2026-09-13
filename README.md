@@ -3,9 +3,7 @@
 **Live lab notebook (GitHub Pages):** https://nerdfreakuser.github.io/silicon-grating-coupler/  
 **Source:** https://github.com/nerdfreakuser/silicon-grating-coupler
 
-This directory used to hold three ChatGPT Canvas PDFs (Author metadata: “ChatGPT Canvas”) that described a “validated multi-foundry AI coupler framework” targeting **<0.5 dB at ≥70% yield** on TSMC 7 nm vs Intel 45 nm. They had no geometry, no Maxwell solve, no process model, and several mis-attached citations.
-
-This tree is the replacement: **one device, one process, actual math, runnable code, honest claims.**
+C-band TE fibre-to-chip grating couplers on a public 220 nm SOI MPW stack. One device, one process, analytic ranking, in-house 2-D FDTD, independent Tidy3D, honest claims.
 
 ## Read this first
 
@@ -54,4 +52,4 @@ Requires numpy, scipy, matplotlib. `analysis/requirements.txt` lists them. Tidy3
 
 ## What this is not
 
-It is not a fabricated device. It is not a 3-D FDTD inverse-design result. The independent 2-D ranking is Tidy3D (§10.1 of the manuscript). The remaining jobs are adjoint inverse design with under-etch samples, then one MPW of paired loopbacks against the PDK cell.
+It is not a fabricated device. It is not a 3-D FDTD inverse-design result. The independent 2-D ranking is Tidy3D (§9.1 of the manuscript). The remaining jobs are adjoint inverse design with under-etch samples, then one MPW of paired loopbacks against the PDK cell.

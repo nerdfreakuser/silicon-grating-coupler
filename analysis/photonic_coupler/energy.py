@@ -1,8 +1,7 @@
 """Link-energy consequences of coupler insertion loss.
 
-The original draft claimed a 0.3 dB coupler yields a 70-90% energy cut
-versus copper (5-10 pJ/bit down to <0.5 pJ/bit). That confuses three
-different numbers:
+A 0.3 dB coupler does not yield a 70-90% energy cut versus copper
+(5-10 pJ/bit down to <0.5 pJ/bit). That confuses three different numbers:
 
 1. Module energy of an 800G pluggable (~15 pJ/bit, DSP + laser + drivers).
 2. Laser wall-plug share of that module (~20-30%).

@@ -116,7 +116,7 @@ def main() -> None:
     e_3_to_03 = module_energy_delta(3.0, 0.3, n_couplers=2)
     print("  PDK 2.8 -> model apodized:", e_pdk_to_model)
     print("  PDK 2.8 -> 0.5 dB:", e_pdk_to_half)
-    print("  3.0 -> 0.3 dB (draft claim setup):", e_3_to_03)
+    print("  3.0 -> 0.3 dB (counterfactual):", e_3_to_03)
 
     print("=== stats ===")
     n_prop = two_proportion_n(0.50, 0.70)
@@ -132,7 +132,7 @@ def main() -> None:
         "n_paired_0p3dB_sigma_diff_0p2": n_pair,
         "n_per_arm_yield_70_vs_90": n_prop_90,
         "mc_yield_2p5dB_clopper_pearson": {"k": k, "n": mc["n"], "lo": lo, "hi": hi},
-        "wrong_draft_n_wafers": 50,
+        "n_wafers_is_the_wrong_unit": 50,
     }
     print(stats)
 

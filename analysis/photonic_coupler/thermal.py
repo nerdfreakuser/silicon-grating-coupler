@@ -41,7 +41,7 @@ class ThermalResult:
     extra_il_per_K_db: float  # small-signal quadratic coefficient at T0, per K^2 actually
     extra_il_20K_db: float
     extra_il_per_K_linearized_db: float  # extra IL at +1 K
-    claimed_001_db_per_C: float  # the LLM draft's claim, for comparison
+    claimed_001_db_per_C: float  # linear 0.01 dB/°C, for comparison
 
 
 def gaussian_fwhm_from_1db(bw1db_nm: float) -> float:

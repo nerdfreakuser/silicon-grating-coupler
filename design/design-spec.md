@@ -9,7 +9,7 @@
 
 ## Overview
 
-Replace the archived LLM “framework” with a single-device, single-process pipeline:
+Single-device, single-process pipeline:
 
 1. Analytic period / DRC / yield (done; `analysis/run_study.py`).
 2. 2-D FDTD verification of the analytic ranking.
@@ -29,7 +29,6 @@ The coupler is a C-band TE focusing grating on 220 nm SOI, 70 nm shallow etch, o
 ## Non-goals
 
 - Sub-0.5 dB on this stack (physics floor is ~1.9 dB without a mirror; see the paper).
-- TSMC N7 / Intel 45 nm “generalization.”
 - Quantum, cryogenic, 256-channel PIC, TCO, or dual-use write-ups.
 - Claiming validation before FDTD and MPW exist.
 
@@ -88,7 +87,7 @@ Fiber: Gaussian, 10.4 µm 1/e² intensity diameter, injected at 8° from normal 
 ### v2 — spline (only if v1 beats v0 by < 0.1 dB, for foundry compactness)
 
 - 8–12 control points on \(f_i, \Lambda_i\).
-- This is the “10–20 parameters” of the original draft, now as a *compression of a legal FDTD design*, not a substitute for one.
+- A compact spline is a *compression of a legal FDTD design*, not a substitute for one.
 
 ## FDTD protocol (2-D, then 3-D)
 
